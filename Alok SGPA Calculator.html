@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SGPA Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+        }
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>SGPA Calculator</h1>
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Subject</th>
+                    <th>Grade (Theory)</th>
+                    <th>Credits (Theory)</th>
+                    <th>Grade (Practical)</th>
+                    <th>Credits (Practical)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Chemistry</td>
+                    <td><input type="text" class="grade-theory"></td>
+                    <td>3</td>
+                    <td><input type="text" class="grade-practical"></td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td>EGD</td>
+                    <td><input type="text" class="grade-theory"></td>
+                    <td>2</td>
+                    <td><input type="text" class="grade-practical"></td>
+                    <td>2</td>
+                </tr>
+                <tr>
+                    <td>PC</td>
+                    <td><input type="text" class="grade-theory"></td>
+                    <td>2</td>
+                    <td><input type="text" class="grade-practical"></td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td>PCC</td>
+                    <td><input type="text" class="grade-theory"></td>
+                    <td>3</td>
+                    <td><input type="text" class="grade-practical"></td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td>Drama/Photography</td>
+                    <td><input type="text" class="grade-theory"></td>
+                    <td>1</td>
+                    <td><input type="text" class="grade-practical"></td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td>Mathematics</td>
+                    <td><input type="text" class="grade-theory"></td>
+                    <td>4</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>IKS</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td><input type="text" class="grade-practical"></td>
+                    <td>2</td>
+                </tr>
+            </tbody>
+        </table>
+        <button onclick="calculateSGPA()">Calculate SGPA</button>
+        <div class="result" id="result"></div>
+    </div>
+    <script>
+        const gradeToPoint = (grade) => {
+            const grades = { "A+": 10, A: 9, "B+": 8, B: 7, "C+": 6, C: 5, D: 4, F: 0 };
+            return grades[grade.toUpperCase()] || 0;
+        };
+
+        function calculateSGPA() {
+            const gradeTheory = document.querySelectorAll('.grade-theory');
+            const creditsTheory = [3, 2, 2, 3, 1, 4, 0]; // Theory credits for each subject
+            const gradePractical = document.querySelectorAll('.grade-practical');
+            const creditsPractical = [1, 2, 1, 1, 1, 0, 2]; // Practical credits for each subject
+
+            let totalPoints = 0, totalCredits = 0;
+
+            // Calculate theory grades
+            gradeTheory.forEach((input, i) => {
+                const grade = input.value.trim();
+                const credits = creditsTheory[i];
+                totalPoints += gradeToPoint(grade) * credits;
+                totalCredits += credits;
+            });
+
+            // Calculate practical grades
+            gradePractical.forEach((input, i) => {
+                const grade = input.value.trim();
+                const credits = creditsPractical[i];
+                totalPoints += gradeToPoint(grade) * credits;
+                totalCredits += credits;
+            });
+
+            const sgpa = totalCredits ? (totalPoints / totalCredits).toFixed(2) : 0;
+            document.getElementById('result').innerText = SGPA: ${sgpa};
+        }
+    </script>
+</body>
+</html>
